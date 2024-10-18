@@ -123,3 +123,68 @@ window.addEventListener("load", () => {
       });
     }
   }
+
+  // Determine Ronaldo spawn interval based on selected difficulty
+function getRonaldoSpawnInterval() {
+    return currentDifficulty === "normal"
+      ? 400
+      : currentDifficulty === "hard"
+      ? 200
+      : currentDifficulty === "mercy"
+      ? 100
+      : 500;
+  }
+  
+  // Start the game with selected difficulty settings
+  window.startGame = (difficulty) => {
+    console.log("Start game clicked with difficulty:", difficulty);
+    currentDifficulty = difficulty;
+  
+    stopAllBackgroundMusic();
+  
+    if (backgroundMusic[difficulty]) {
+      backgroundMusic[difficulty].play().catch((error) => {
+        console.error("Background music playback failed:", error);
+      });
+    }
+  
+    gameStarted = true;
+    document.getElementById("main-menu").style.display = "none";
+    document.getElementById("game-area").style.visibility = "visible";
+    document.getElementById("messi").style.visibility = "visible";
+    document.getElementById("scoreboard").style.visibility = "visible";
+  
+    // Set movement parameters and spawn intervals for Ronaldo based on difficulty
+    let speedX, stepY, ronaldoMovementInterval, ronaldoSpawnInterval;
+  
+    if (difficulty === "normal") {
+      speedX = 25;
+      stepY = 25;
+      ronaldoMovementInterval = 40;
+      ronaldoSpawnInterval = 350;
+    } else if (difficulty === "hard") {
+      speedX = 30;
+      stepY = 30;
+      ronaldoMovementInterval = 30;
+      ronaldoSpawnInterval = 150;
+    } else if (difficulty === "mercy") {
+      speedX = 35;
+      stepY = 35;
+      ronaldoMovementInterval = 18;
+      ronaldoSpawnInterval = 70;
+    } else {
+      speedX = 15;
+      stepY = 15;
+      ronaldoMovementInterval = 50;
+      ronaldoSpawnInterval = 500;
+    }
+  
+    createMadrid(3, 15);
+  
+    setMadridMovementParameters(speedX, stepY);
+    setRonaldoMovementParameters(ronaldoMovementInterval);
+    ronaldoInterval = setInterval(createRonaldo, ronaldoSpawnInterval);
+  
+    requestAnimationFrame(update);
+    startTimer();
+  };
