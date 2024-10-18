@@ -44,3 +44,10 @@ export function formatTime(ms) {
     var seconds = totalSeconds % 60;
     return `Time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
+
+  // Starts the timer countdown
+export function startTimer() {
+    initialTime = new Date();
+    totalPausedDuration = 0;
+    setTimeout(updateTimer, 500);
+  }
