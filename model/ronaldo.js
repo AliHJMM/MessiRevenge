@@ -54,3 +54,8 @@ export function createRonaldo() {
     requestAnimationFrame(moveRonaldo);
     activeRonaldos.push(moveRonaldo);
   }
+
+  // Stops all active Ronaldo movements
+export function freezeRonaldos() {
+    activeRonaldos.forEach((interval) => clearInterval(interval));
+  }
