@@ -66,3 +66,19 @@ export const freezeTimer = () => {
     isTimerPaused = false;
     updateTimer();
   };
+
+  // Updates the display of lives on the UI
+export function updateLives() {
+    const livesContainer = document.getElementById("lives");
+    livesContainer.innerHTML = "";
+  
+    for (let i = 0; i < lives; i++) {
+      const lifeImage = document.createElement("img");
+      lifeImage.src =
+        "https://res.cloudinary.com/dovvtjnrs/image/upload/v1728493346/BDOR_nvwwrj.png";
+      lifeImage.alt = "Life";
+      lifeImage.style.width = "60px";
+      lifeImage.style.margin = "0 10px";
+      livesContainer.appendChild(lifeImage);
+    }
+  }
