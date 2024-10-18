@@ -48,3 +48,9 @@ function startShooting() {
       }
     }, 500);
   }
+
+  // Stops the shooting interval when the up key is released
+function stopShooting() {
+    clearInterval(ballInterval);
+    ballInterval = null;
+  }
