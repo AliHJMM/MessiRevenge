@@ -19,3 +19,20 @@ let winaudio = new Audio(
 let pauseStartTime,
   totalPausedDuration = 0,
   isTimerPaused = false;
+
+    // Updates and displays remaining time, triggers game over if time runs out
+export function updateTimer() {
+    if (isTimerPaused) return;
+  
+    var elapsed = new Date() - initialTime;
+    var remainingTime = Math.max(
+      0,
+      1000 * 60 * 1 - elapsed + totalPausedDuration
+    );
+    document.getElementById("timer").innerHTML = formatTime(remainingTime);
+    if (remainingTime > 0) {
+      setTimeout(updateTimer, 1000 - (elapsed % 1000));
+    } else {
+      gameOver();
+    }
+  }
