@@ -54,3 +54,19 @@ function stopShooting() {
     clearInterval(ballInterval);
     ballInterval = null;
   }
+
+  // Moves Messi left or right based on key input
+export function moveMessi() {
+    if (keys.left) {
+      leftPosition -= speed;
+      if (leftPosition < 0) {
+        leftPosition = 0;
+      }
+    } else if (keys.right) {
+      leftPosition += speed;
+      if (leftPosition > windowWidth - messiWidth) {
+        leftPosition = windowWidth - messiWidth;
+      }
+    }
+    messi.style.left = leftPosition + "px";
+  }
