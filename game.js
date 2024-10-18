@@ -188,3 +188,62 @@ function getRonaldoSpawnInterval() {
     requestAnimationFrame(update);
     startTimer();
   };
+
+  // Main game loop: Updates movement if game is not paused
+function update() {
+    if (!window.pause) {
+      moveMadrid();
+      messiMovement();
+    }
+    requestAnimationFrame(update);
+  }
+  
+  // Keyboard controls for pausing and restarting the game
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "p") {
+      pauseGame();
+    } else if (e.key === "r") {
+      restartGame();
+    }
+  });
+  
+  // Function to pause or resume the game
+  window.pauseGame = () => {
+    if (!gameStarted) return;
+  
+    window.pause = !window.pause;
+  
+    if (window.pause) {
+      isAllowed = false;
+      console.log("Game paused");
+      clearInterval(ronaldoInterval);
+      freezeRonaldos();
+      freezeTimer();
+      pauseBackgroundMusic();
+      document.getElementById("pause-button").innerText = "Continue";
+      document.getElementById("restart").style.visibility = "visible";
+    } else {
+      isAllowed = true;
+      console.log("Game resumed");
+      ronaldoInterval = setInterval(createRonaldo, getRonaldoSpawnInterval());
+      resumeRonaldos();
+      resumeTimer();
+      resumeBackgroundMusic();
+      document.getElementById("pause-button").innerText = "Pause";
+      document.getElementById("restart").style.visibility = "hidden";
+    }
+  };
+  
+  // Restart the game by reloading the window
+  window.restartGame = () => {
+    console.log("Restarting game...");
+    window.location.reload();
+  };
+  
+  // Attach restart functionality to the restart button
+  document.getElementById("restart").addEventListener("click", restartGame);
+  
+  // Screen size check on window resize
+  checkScreenSize();
+  window.addEventListener("resize", checkScreenSize);
+  
