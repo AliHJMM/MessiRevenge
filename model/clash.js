@@ -12,3 +12,21 @@ export function isClash(ball, madridElement) {
     ballRect.left > madridRect.right
   );
 }
+
+// Detects clash between ronaldo and messi, decreases lives if they clash
+export function detectClash(ronaldo, messi) {
+    messi = document.getElementById("messi");
+    const ronaldoRect = ronaldo.getBoundingClientRect();
+    const messiRect = messi.getBoundingClientRect();
+  
+    if (
+      ronaldoRect.left < messiRect.right &&
+      ronaldoRect.right > messiRect.left &&
+      ronaldoRect.top < messiRect.bottom &&
+      ronaldoRect.bottom > messiRect.top
+    ) {
+      decreaseLives();
+      ronaldo.remove();
+    }
+  }
+  
