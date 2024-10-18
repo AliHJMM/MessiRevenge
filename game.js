@@ -63,3 +63,40 @@ import {
       });
     }
   }
+
+  // Check screen size for optimal display
+function checkScreenSize() {
+    const requiredWidth = 1300;
+    const currentWidth = window.innerWidth;
+    const zoomLevel = Math.round((currentWidth / window.outerWidth) * 100);
+    const warningMessage = document.getElementById("warning-message");
+  
+    if (currentWidth < requiredWidth || zoomLevel !== 100) {
+      warningMessage.style.display = "flex";
+    } else {
+      warningMessage.style.display = "none";
+    }
+  }
+  
+  // Stop hover sound when mouse leaves button
+  function stopHoverSound(audioId) {
+    const audioElement = document.getElementById(audioId);
+    if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    }
+  }
+  
+  // Set up hover sounds for buttons with specific audio IDs
+  function setupHoverSounds() {
+    const buttons = document.querySelectorAll(".button-with-image");
+  
+    buttons.forEach((button) => {
+      const hoverAudioId = button.getAttribute("data-hover-audio");
+  
+      button.addEventListener("mouseover", () => playHoverSound(hoverAudioId));
+      button.addEventListener("mouseout", () => stopHoverSound(hoverAudioId));
+    });
+  }
+  
+  setupHoverSounds();
