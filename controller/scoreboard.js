@@ -121,3 +121,9 @@ export function increaseScore() {
   }
   updatescore();
 }
+
+// Updates score display on the UI
+export function updatescore() {
+    document.getElementById("score").innerText = `Score: ${score}`;
+  }
+  
