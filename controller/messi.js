@@ -70,3 +70,12 @@ export function moveMessi() {
     }
     messi.style.left = leftPosition + "px";
   }
+
+  // Main function to handle Messi's movement and setup controls
+export function messiMovement() {
+    if (!window.controlsSet) {
+      setupControls();
+      window.controlsSet = true;
+    }
+    moveMessi();
+  }
