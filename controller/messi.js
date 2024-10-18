@@ -36,3 +36,15 @@ function setupControls() {
       }
     });
   }
+
+  // Starts shooting balls at an interval if the up key is held down
+function startShooting() {
+    if (ballInterval) return;
+    createBall();
+  
+    ballInterval = setInterval(() => {
+      if (keys.up) {
+        createBall();
+      }
+    }, 500);
+  }
