@@ -36,3 +36,11 @@ export function updateTimer() {
       gameOver();
     }
   }
+
+  // Formats time in "Time: MM:SS" format
+export function formatTime(ms) {
+    var totalSeconds = Math.floor(ms / 1000);
+    var minutes = Math.floor(totalSeconds / 60);
+    var seconds = totalSeconds % 60;
+    return `Time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  }
