@@ -57,3 +57,12 @@ export const freezeTimer = () => {
     isTimerPaused = true;
     pauseStartTime = new Date();
   };
+
+  export const resumeTimer = () => {
+    if (isTimerPaused) {
+      let currentPauseDuration = new Date() - pauseStartTime;
+      totalPausedDuration += currentPauseDuration;
+    }
+    isTimerPaused = false;
+    updateTimer();
+  };
