@@ -59,3 +59,27 @@ export function createRonaldo() {
 export function freezeRonaldos() {
     activeRonaldos.forEach((interval) => clearInterval(interval));
   }
+
+  // Resumes movement of all Ronaldo elements currently on the screen
+export function resumeRonaldos() {
+    document.querySelectorAll(".ronaldo").forEach((ronaldo) => {
+      let topPosition = parseInt(ronaldo.style.top, 10);
+  
+      function moveRonaldo() {
+        topPosition += 10;
+        ronaldo.style.top = `${topPosition}px`;
+  
+        detectClash(ronaldo, messi);
+  
+        if (topPosition > window.innerHeight) {
+          ronaldo.remove();
+          clearInterval(movementInterval);
+          activeRonaldos.splice(activeRonaldos.indexOf(movementInterval), 1);
+        }
+      }
+  
+      const movementInterval = setInterval(moveRonaldo, ronaldoMovementInterval);
+      activeRonaldos.push(movementInterval);
+    });
+  }
+  
