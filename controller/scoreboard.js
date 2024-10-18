@@ -51,3 +51,9 @@ export function startTimer() {
     totalPausedDuration = 0;
     setTimeout(updateTimer, 500);
   }
+
+  // Pauses and resumes the timer
+export const freezeTimer = () => {
+    isTimerPaused = true;
+    pauseStartTime = new Date();
+  };
