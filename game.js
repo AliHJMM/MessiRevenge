@@ -100,3 +100,26 @@ function checkScreenSize() {
   }
   
   setupHoverSounds();
+
+  // Show story dialog on initial game load
+window.addEventListener("load", () => {
+    console.log("Window loaded - showing introduction story");
+    document.getElementById("main-menu").style.display = "none";
+    showStoryDialog("introduction", 0);
+  });
+  
+  // Pause all background music temporarily
+  function pauseBackgroundMusic() {
+    Object.values(backgroundMusic).forEach((music) => {
+      music.pause();
+    });
+  }
+  
+  // Resume background music based on current difficulty
+  function resumeBackgroundMusic() {
+    if (backgroundMusic[currentDifficulty]) {
+      backgroundMusic[currentDifficulty].play().catch((error) => {
+        console.error("Background music playback failed:", error);
+      });
+    }
+  }
