@@ -94,3 +94,30 @@ export function decreaseLives() {
     }
     offaudio.play();
   }
+
+  updateLives();
+
+// Increases score and handles story dialog at certain milestones
+export function increaseScore() {
+  score += 50;
+
+  if (score >= 1125 && score < 1175) {
+    window.pauseGame();
+    showStoryDialog("development");
+
+    const storyButton = document.querySelector(".start-button");
+    if (storyButton) {
+      storyButton.addEventListener("click", () => {
+        console.log("Resuming game after story dialog");
+        window.pauseGame();
+      });
+    }
+  }
+
+  if (score >= 2250) {
+    winaudio.play();
+    victory();
+    return;
+  }
+  updatescore();
+}
