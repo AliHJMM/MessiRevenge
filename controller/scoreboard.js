@@ -82,3 +82,15 @@ export function updateLives() {
       livesContainer.appendChild(lifeImage);
     }
   }
+
+  // Decreases lives, triggers game over if lives reach zero
+export function decreaseLives() {
+    lives--;
+    updateLives();
+    if (lives <= 0) {
+      cjaudio.play();
+      gameOver();
+      return;
+    }
+    offaudio.play();
+  }
