@@ -20,82 +20,82 @@ let pauseStartTime,
   totalPausedDuration = 0,
   isTimerPaused = false;
 
-    // Updates and displays remaining time, triggers game over if time runs out
+  // Updates and displays remaining time, triggers game over if time runs out
 export function updateTimer() {
-    if (isTimerPaused) return;
-  
-    var elapsed = new Date() - initialTime;
-    var remainingTime = Math.max(
-      0,
-      1000 * 60 * 1 - elapsed + totalPausedDuration
-    );
-    document.getElementById("timer").innerHTML = formatTime(remainingTime);
-    if (remainingTime > 0) {
-      setTimeout(updateTimer, 1000 - (elapsed % 1000));
-    } else {
-      gameOver();
-    }
-  }
+  if (isTimerPaused) return;
 
-  // Formats time in "Time: MM:SS" format
+  var elapsed = new Date() - initialTime;
+  var remainingTime = Math.max(
+    0,
+    1000 * 60 * 1 - elapsed + totalPausedDuration
+  );
+  document.getElementById("timer").innerHTML = formatTime(remainingTime);
+  if (remainingTime > 0) {
+    setTimeout(updateTimer, 1000 - (elapsed % 1000));
+  } else {
+    gameOver();
+  }
+}
+
+// Formats time in "Time: MM:SS" format
 export function formatTime(ms) {
-    var totalSeconds = Math.floor(ms / 1000);
-    var minutes = Math.floor(totalSeconds / 60);
-    var seconds = totalSeconds % 60;
-    return `Time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  }
+  var totalSeconds = Math.floor(ms / 1000);
+  var minutes = Math.floor(totalSeconds / 60);
+  var seconds = totalSeconds % 60;
+  return `Time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
 
-  // Starts the timer countdown
+// Starts the timer countdown
 export function startTimer() {
-    initialTime = new Date();
-    totalPausedDuration = 0;
-    setTimeout(updateTimer, 500);
-  }
+  initialTime = new Date();
+  totalPausedDuration = 0;
+  setTimeout(updateTimer, 500);
+}
 
-  // Pauses and resumes the timer
+// Pauses and resumes the timer
 export const freezeTimer = () => {
-    isTimerPaused = true;
-    pauseStartTime = new Date();
-  };
+  isTimerPaused = true;
+  pauseStartTime = new Date();
+};
 
-  export const resumeTimer = () => {
-    if (isTimerPaused) {
-      let currentPauseDuration = new Date() - pauseStartTime;
-      totalPausedDuration += currentPauseDuration;
-    }
-    isTimerPaused = false;
-    updateTimer();
-  };
+export const resumeTimer = () => {
+  if (isTimerPaused) {
+    let currentPauseDuration = new Date() - pauseStartTime;
+    totalPausedDuration += currentPauseDuration;
+  }
+  isTimerPaused = false;
+  updateTimer();
+};
 
-  // Updates the display of lives on the UI
+// Updates the display of lives on the UI
 export function updateLives() {
-    const livesContainer = document.getElementById("lives");
-    livesContainer.innerHTML = "";
-  
-    for (let i = 0; i < lives; i++) {
-      const lifeImage = document.createElement("img");
-      lifeImage.src =
-        "https://res.cloudinary.com/dovvtjnrs/image/upload/v1728493346/BDOR_nvwwrj.png";
-      lifeImage.alt = "Life";
-      lifeImage.style.width = "60px";
-      lifeImage.style.margin = "0 10px";
-      livesContainer.appendChild(lifeImage);
-    }
-  }
+  const livesContainer = document.getElementById("lives");
+  livesContainer.innerHTML = "";
 
-  // Decreases lives, triggers game over if lives reach zero
+  for (let i = 0; i < lives; i++) {
+    const lifeImage = document.createElement("img");
+    lifeImage.src =
+      "https://res.cloudinary.com/dovvtjnrs/image/upload/v1728493346/BDOR_nvwwrj.png";
+    lifeImage.alt = "Life";
+    lifeImage.style.width = "60px";
+    lifeImage.style.margin = "0 10px";
+    livesContainer.appendChild(lifeImage);
+  }
+}
+
+// Decreases lives, triggers game over if lives reach zero
 export function decreaseLives() {
-    lives--;
-    updateLives();
-    if (lives <= 0) {
-      cjaudio.play();
-      gameOver();
-      return;
-    }
-    offaudio.play();
-  }
-
+  lives--;
   updateLives();
+  if (lives <= 0) {
+    cjaudio.play();
+    gameOver();
+    return;
+  }
+  offaudio.play();
+}
+
+updateLives();
 
 // Increases score and handles story dialog at certain milestones
 export function increaseScore() {
@@ -122,8 +122,8 @@ export function increaseScore() {
   updatescore();
 }
 
+
 // Updates score display on the UI
 export function updatescore() {
-    document.getElementById("score").innerText = `Score: ${score}`;
-  }
-  
+  document.getElementById("score").innerText = `Score: ${score}`;
+}
